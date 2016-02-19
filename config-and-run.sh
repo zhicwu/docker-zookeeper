@@ -14,6 +14,9 @@ if [ ! -z "$SERVER_ID" ] && [ ! -z "$MAX_SERVERS" ]; then
   
   # only when $ZK_HOME/conf is not mounted
   if [ -f $ZK_HOME/conf/zoo-base.cfg ]; then 
+    : ${SERVER_PREFIX:="zookeeper-"}
+    : ${SERVER_SUFFIX:=""}
+
     echo "" >> $ZK_HOME/conf/zoo.cfg
     echo "# Server List" >> $ZK_HOME/conf/zoo.cfg
 
@@ -21,7 +24,7 @@ if [ ! -z "$SERVER_ID" ] && [ ! -z "$MAX_SERVERS" ]; then
       if [ "$SERVER_ID" = "$i" ];then
         echo "server.$i=0.0.0.0:2888:3888" >> $ZK_HOME/conf/zoo.cfg
       else
-        echo "server.$i=zookeeper-$i:2888:3888" >> $ZK_HOME/conf/zoo.cfg
+        echo "server.$i=$SERVER_PREFIX$i$SERVER_SUFFIX:2888:3888" >> $ZK_HOME/conf/zoo.cfg
       fi
     done
   fi

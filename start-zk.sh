@@ -38,6 +38,9 @@ setup_env() {
 
 
   # check environment variables and set defaults as required
+  : ${SERVER_PREFIX:="zookeeper-"}
+  : ${SERVER_SUFFIX:=""}
+
   : ${CONF_DIR:="$cdir/zk-conf"}
   : ${DATA_DIR:="$cdir/zk-data"}
   : ${LOG_DIR:="$cdir/zk-log"}
@@ -48,11 +51,13 @@ setup_env() {
   mkdir -p $CONF_DIR $DATA_DIR $LOG_DIR
 
   info "Loaded environment variables:"
-  info "        CONF_DIR    = $CONF_DIR"
-  info "        DATA_DIR    = $DATA_DIR"
-  info "        LOG_DIR     = $LOG_DIR" 
-  info "	SERVER_ID   = $SERVER_ID"
-  info "	MAX_SERVERS = $MAX_SERVERS"
+  info "        SERVER_PREFIX = $SERVER_PREFIX"
+  info "        SERVER_SUFFIX = $SERVER_SUFFIX"
+  info "        CONF_DIR      = $CONF_DIR"
+  info "        DATA_DIR      = $DATA_DIR"
+  info "        LOG_DIR       = $LOG_DIR" 
+  info "	SERVER_ID     = $SERVER_ID"
+  info "	MAX_SERVERS   = $MAX_SERVERS"
 }
 
 start_zk() {
@@ -64,6 +69,7 @@ start_zk() {
   # references: http://stackoverflow.com/questions/24288616/permission-denied-on-accessing-host-directory-in-docker
   docker run -d --name="$ZK_ALIAS" --net=host --restart=always \
     -e SERVER_ID="$SERVER_ID" -e MAX_SERVERS="$MAX_SERVERS" \
+    -e SERVER_PREFIX="$SERVER_PREFIX" -e SERVER_SUFFIX="$SERVER_SUFFIX" \
     -v $CONF_DIR:/zookeper/conf:Z -v $DATA_DIR:/zookeeper/data:Z -v $LOG_DIR:/zookeeper/log:Z \
     zhicwu/zookeeper:$ZK_TAG
 

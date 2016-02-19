@@ -16,11 +16,6 @@ ENV ZK_VERSION=3.4.6 ZK_HOME=/zookeeper \
 # Set labels
 LABEL zk_version="Apache ZooKeeper $ZK_VERSION" 
 
-# Install Prerequisites
-#RUN apt-get update \
-#	&& apt-get install -y build-essential git python libjansi-java \
-#	&& rm -rf /var/lib/apt/lists/*
-
 # Install Apache ZooKeeper
 RUN wget ${APACHE_BASE_URL}/zookeeper/zookeeper-${ZK_VERSION}/zookeeper-${ZK_VERSION}.tar.gz \
 	&& tar zxvf *.tar.gz \

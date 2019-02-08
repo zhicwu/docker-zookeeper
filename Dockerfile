@@ -1,6 +1,5 @@
 #
-# This docker image is just for development and testing purpose - please do NOT use on production
-# Credit goes to https://github.com/fabric8io/fabric8-zookeeper-docker/blob/master/Dockerfile
+# This docker image is ZooKeeper 3.5 series.
 #
 
 # Base image
